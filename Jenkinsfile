@@ -1,5 +1,21 @@
-node {
-  echo 'My first Jenkinsfile'
-  sh 'ls'
-  sh 'pwd'
-}
+pipeline {
+    agent {
+       docker {
+            image 'node:7-alpine'
+             }
+          }
+    stages {
+      stage('First') {
+         steps {
+           sh 'pwd'       
+           sh 'ls'
+           sh 'node hello.js'
+          }
+        }
+       }
+   post {
+        success {
+           cleanWs()
+        }
+    }
+     }
